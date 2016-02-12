@@ -25,7 +25,7 @@ Fields = React.createClass({
 			return(
 				<tr key={"field"+ind}>
 					<td>{ind}</td>
-					<td>{field}</td>
+					<td><Field field={field} /></td>
 				</tr>
 			)
 		})
@@ -39,7 +39,9 @@ Fields = React.createClass({
 				<h3>{header}</h3>
 				<div className="scrollable">
 					<table className="table">
-						{this.renderFields()}
+						<tbody>
+							{this.renderFields()}
+						</tbody>
 					</table>
 				</div>
 			</div>
