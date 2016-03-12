@@ -10,11 +10,17 @@ AddSchema = React.createClass({
 
 	render() {
 		return (
-			<div className="container">
-				<form onSubmit={this.addSchema}>
-					<input type="text" ref="schemaName" />
-					<input type="submit" value="Add" />
-				</form>
+			<div>
+				<div className="container">
+					<form onSubmit={this.addSchema}>
+						<input type="text" ref="schemaName" />
+						<input type="submit" value="Add" />
+					</form>
+					<CollectionList
+					collection="Schemas"
+					display="name"
+					baseURL="/schema/" />
+				</div>			
 			</div>
 		)
 	}

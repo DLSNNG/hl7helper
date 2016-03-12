@@ -6,7 +6,8 @@ EditSchema = React.createClass({
 
 	getInitialState() {
 		return {
-			schema: new Models.Schema(this.props.schema)
+			schema: new Models.Schema(this.props.schema),
+			selectedSegment: false
 		}
 	},
 
@@ -19,28 +20,64 @@ EditSchema = React.createClass({
 			schema.addSegment(segment);
 
 		this.setState({ schema: schema });
+			schema.save();
 		e.target.reset();
 	},
 
-	saveSchema() {
-		var schema = this.state.schema;
-			schema.save();
+	editSegment(e) {
+		e.preventDefault();
+		console.log(this.state.schema);
+		var segment = this.state.schema.segments[e.target.dataset.value];
+		console.log(segment);
+		this.setState({ selectedSegment: segment });
 	},
 
-	render() {
-		var schemaNodes = Object.keys(this.state.schema.segments).map(function(key) {
-			return <div key={key}>{key}</div>
-		});
+	updateSegment(segment) {
+		var schema = this.state.schema;
+		var segmentName = segment.name;
+			schema.segments[segmentName] = segment;
+			schema.save();
+			this.setState({schema: schema});
+			console.log(schema);
+	},
 
-		return (
-			<div className="container">
+	renderSelectedSegment() {
+		if(this.state.selectedSegment) {
+			return (
+				<div className="col-md-8">
+					<EditSegment segment={this.state.selectedSegment} updateSegment={this.updateSegment} />
+				</div>
+			)
+		}
+		else {
+			return (<div></div>)
+		}
+	},
+
+	renderSegments() {
+		var gridSize = this.state.selectedSegment ? "col-md-4" : "col-md-12";
+		var self = this;
+		var schemaNodes = Object.keys(this.state.schema.segments).map(function(key) {
+			return <li onClick={self.editSegment} data-value={key} className="list-group-item" key={key}>{key}</li>
+		});
+		return(
+			<div className={gridSize}>
 				<h3>{this.state.schema.name}</h3>
 				<form onSubmit={this.addSegment}>
 					<input type="text" ref="segmentName" />
 					<input type="submit" value="Add" />
 				</form>
-				<input type="submit" value="save" onClick={this.saveSchema} />
-				{schemaNodes}
+				<ul className="list-group">
+					{schemaNodes}
+				</ul>
+			</div>
+		)
+	},
+	render() {
+		return (
+			<div className="container">
+				{this.renderSegments()}
+				{this.renderSelectedSegment()}
 			</div>
 		)
 	}
