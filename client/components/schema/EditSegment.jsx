@@ -27,10 +27,27 @@ EditSegment = React.createClass({
 		console.log("field clicked", field);
 	},
 
+	removeField(e) {
+
+		e.preventDefault();
+
+		var segment = this.props.segment;
+		var fieldIndex = e.target.dataset.index;
+			segment.fields.splice(fieldIndex, 1);
+			this.props.updateSegment(segment);
+			console.log("removed segment", fieldIndex);
+
+	},
+
 	render() {
 		var self=this;
 		var fields = this.props.segment.fields.map(function(field, index) {
-			return <li data-value={index} onClick={self.editField} key={index+1} className="list-group-item">{index+1}: {field.description}</li>;
+			var display = (index+1).toString() + ": " + field.description;
+			return (
+				<li data-value={index} onClick={self.editField} key={index+1} className="list-group-item">
+					{display} <div data-index={index} className="glyphicon glyphicon-remove pull-right" onClick={self.removeField}></div>
+				</li>
+			)
 		});
 		console.log(this.props.segment.fields);
 		return (

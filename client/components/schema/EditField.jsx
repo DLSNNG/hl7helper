@@ -19,13 +19,32 @@ EditField = React.createClass({
 		e.target.reset(); 
 	},
 
+	removeSubField(e) {
+
+		e.preventDefault();
+		var segment = this.props.segment;
+		var fieldNumber = this.props.fieldNumber;
+		var subFieldIndex = e.target.dataset.index;
+		var field =	segment.fields[fieldNumber];
+			field.subfields.splice(subFieldIndex, 1);
+		this.props.updateSegment(segment);
+		console.log("removing subfield", subFieldIndex);
+
+	},
+
 	render() {
+		var self = this;
 		var fieldNumber = this.props.fieldNumber;
 		var displayNumber = parseInt(fieldNumber) + 1;
 		var segment = this.props.segment;
 		console.log("fieldNumber", fieldNumber);
 		var subFields = segment.fields[fieldNumber].subfields.map(function(subField, index) {
-			return <li key={index+1} className="list-group-item">{index+1}: {subField.description}</li>;
+			var display = displayNumber.toString() + ": " + subField.description;
+			return (
+				<li key={index+1} className="list-group-item">
+					{display} <div data-index={index} className="glyphicon glyphicon-remove pull-right" onClick={self.removeSubField}></div>
+				</li>
+			)
 		});
 		console.log(segment.fields[fieldNumber].subfields);
 		return (

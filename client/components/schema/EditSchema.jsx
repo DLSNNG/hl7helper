@@ -21,8 +21,19 @@ EditSchema = React.createClass({
 			schema.addSegment(segment);
 
 		this.setState({ schema: schema });
-			schema.save();
+		schema.save();
 		e.target.reset();
+	},
+
+	removeSegment(e) {
+
+		e.preventDefault;
+		var schema = this.state.schema;
+		var segment = e.target.dataset.value;
+		delete schema.segments[segment];
+		schema.save();
+		this.setState({ schema: schema });
+
 	},
 
 	editSegment(e) {
@@ -52,7 +63,11 @@ EditSchema = React.createClass({
 		var gridSize = this.state.selectedSegment ? "col-md-4" : "col-md-12";
 		var self = this;
 		var schemaNodes = Object.keys(this.state.schema.segments).map(function(key) {
-			return <li onClick={self.editSegment} data-value={key} className="list-group-item" key={key}>{key}</li>
+			return (
+				<li onClick={self.editSegment} data-value={key} className="list-group-item" key={key}>
+					{key} <div data-value={key} className="glyphicon glyphicon-remove pull-right" onClick={self.removeSegment}></div>
+				</li>
+			)
 		});
 		return(
 			<div className={gridSize}>
