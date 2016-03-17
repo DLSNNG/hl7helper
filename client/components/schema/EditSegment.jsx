@@ -2,7 +2,8 @@ EditSegment = React.createClass({
 
 	propTypes: {
 		segment: React.PropTypes.object,
-		updateSegment: React.PropTypes.func
+		updateSegment: React.PropTypes.func,
+		editField: React.PropTypes.func
 	},
 
 	addField(e) {
@@ -19,9 +20,17 @@ EditSegment = React.createClass({
 		e.target.reset(); 
 	},
 
+	editField(e) {
+		e.preventDefault();
+		var field = e.target.dataset.value;
+		this.props.editField(field)
+		console.log("field clicked", field);
+	},
+
 	render() {
+		var self=this;
 		var fields = this.props.segment.fields.map(function(field, index) {
-			return <li key={index+1} className="list-group-item">{index+1}: {field.description}</li>;
+			return <li data-value={index} onClick={self.editField} key={index+1} className="list-group-item">{index+1}: {field.description}</li>;
 		});
 		console.log(this.props.segment.fields);
 		return (

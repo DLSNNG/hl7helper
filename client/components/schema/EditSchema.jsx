@@ -7,7 +7,8 @@ EditSchema = React.createClass({
 	getInitialState() {
 		return {
 			schema: new Models.Schema(this.props.schema),
-			selectedSegment: false
+			selectedSegment: false,
+			selectedField: false,
 		}
 	},
 
@@ -29,7 +30,13 @@ EditSchema = React.createClass({
 		console.log(this.state.schema);
 		var segment = this.state.schema.segments[e.target.dataset.value];
 		console.log(segment);
-		this.setState({ selectedSegment: segment });
+		this.setState({ selectedSegment: segment, selectedField: false });
+	},
+
+	editField(field) {
+		console.log("field assigned", field);
+		this.setState({ selectedField: field });
+
 	},
 
 	updateSegment(segment) {
@@ -39,19 +46,6 @@ EditSchema = React.createClass({
 			schema.save();
 			this.setState({schema: schema});
 			console.log(schema);
-	},
-
-	renderSelectedSegment() {
-		if(this.state.selectedSegment) {
-			return (
-				<div className="col-md-8">
-					<EditSegment segment={this.state.selectedSegment} updateSegment={this.updateSegment} />
-				</div>
-			)
-		}
-		else {
-			return (<div></div>)
-		}
 	},
 
 	renderSegments() {
@@ -73,11 +67,44 @@ EditSchema = React.createClass({
 			</div>
 		)
 	},
+
+	renderSelectedSegment() {
+		if(this.state.selectedSegment) {
+			return (
+				<div className="col-md-4">
+					<EditSegment segment={this.state.selectedSegment} 
+						updateSegment={this.updateSegment} 
+						editField={this.editField}/>
+				</div>
+			)
+		}
+		else {
+			return (<div></div>)
+		}
+	},
+
+	renderSelectedField() {
+		if(this.state.selectedField) {
+			return (
+				<div className="col-md-4">
+					<EditField 
+						segment={this.state.selectedSegment} 
+						updateSegment={this.updateSegment} 
+						fieldNumber={this.state.selectedField}/>
+				</div>
+			)
+		}
+		else {
+			return (<div></div>)
+		}
+	},
+
 	render() {
 		return (
 			<div className="container">
 				{this.renderSegments()}
 				{this.renderSelectedSegment()}
+				{this.renderSelectedField()}
 			</div>
 		)
 	}
