@@ -39,7 +39,7 @@ EditField = React.createClass({
 		var segment = this.props.segment;
 		console.log("fieldNumber", fieldNumber);
 		var subFields = segment.fields[fieldNumber].subfields.map(function(subField, index) {
-			var display = displayNumber.toString() + ": " + subField.description;
+			var display = parseInt(index + 1) + ": " + subField.description;
 			return (
 				<li key={index+1} className="list-group-item">
 					{display} <div data-index={index} className="glyphicon glyphicon-remove pull-right" onClick={self.removeSubField}></div>

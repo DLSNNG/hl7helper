@@ -2,7 +2,8 @@ Segment = React.createClass({
 
 	propTypes: {
 		segment: React.PropTypes.string,
-		index: React.PropTypes.number
+		index: React.PropTypes.number,
+		schema: React.PropTypes.object
 	},
 
 	getInitialState() {
@@ -25,7 +26,7 @@ Segment = React.createClass({
 			<div className="modal-backdrop" onClick={this.toggleShown}>
 				<div className="modal-inner" onClick={this.stopPropagation}>
 					<span className="glyphicon glyphicon-remove pull-right red" onClick={this.toggleShown}></span>
-					<Fields segment={this.props.segment} />
+					<Fields segment={this.props.segment} schema={this.props.schema} />
 				</div>
 			</div>
 		)

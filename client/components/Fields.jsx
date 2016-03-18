@@ -1,7 +1,8 @@
 Fields = React.createClass({
 
 	propTypes: {
-		segment: React.PropTypes.string
+		segment: React.PropTypes.string,
+		schema: React.PropTypes.object
 	},
 	
 	parseFields() {
@@ -19,13 +20,21 @@ Fields = React.createClass({
 	renderFields() {
 		var fieldsObj = this.parseFields();
 		var fields = fieldsObj.fields;
-		console.log("fields", fields);
+		var header = fieldsObj.header;
+		var schema = this.props.schema;
+		var self = this;
 		var fieldNodes = fields.map(function(field, index) {
 			var ind = index + 1;
+			var segments = schema.segments ? schema.segments : {};
+			var fields = segments[header] ? segments[header].fields : {};
+			var schemaSegment = fields[index] ? fields[index] : {};
+			var description = fields[index] ? fields[index].description : "";
+
 			return(
 				<tr key={"field"+ind}>
 					<td>{ind}</td>
-					<td><Field field={field} /></td>
+					<td><Field field={field} schema={schemaSegment}/></td>
+					<td>{description}</td>
 				</tr>
 			)
 		})

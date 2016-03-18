@@ -1,7 +1,8 @@
 Segments = React.createClass({
 
 	propTypes: {
-		message: React.PropTypes.string
+		message: React.PropTypes.string,
+		schema: React.PropTypes.object
 	},
 
 	parseSegments() {
@@ -25,14 +26,15 @@ Segments = React.createClass({
 		schema.addSegment(segment);
 
 		console.log("schema", schema);
-
+		var self = this;
 		var segmentNodes = this.parseSegments().map(function(segment, index) {
 			var ind = index + 1;
 			return (
 				<Segment
 					key={"segment"+ind} 
 					segment={segment}
-					index={ind} />
+					index={ind}
+					schema={self.props.schema} />
 			)
 		})
 		return segmentNodes;

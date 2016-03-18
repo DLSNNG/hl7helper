@@ -115,6 +115,7 @@ EditSchema = React.createClass({
 	},
 
 	render() {
+		console.log("schema", this.props.schema);
 		return (
 			<div className="container">
 				{this.renderSegments()}

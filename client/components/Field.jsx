@@ -1,7 +1,8 @@
 Field = React.createClass({
 
 	propTypes: {
-		field: React.PropTypes.string
+		field: React.PropTypes.string,
+		schema: React.PropTypes.object
 	},
 
 	getInitialState() {
@@ -25,12 +26,16 @@ Field = React.createClass({
 		if(this.state.showSubFields) {
 			var subFields = this.parseSubFields();
 			console.log("subfields", subFields);
+			var self = this;
 			var subFieldNodes = subFields.map(function(field, index) {
 				var ind = index + 1;
+				var schemaSubfields = self.props.schema.subfields ? self.props.schema.subfields : {};
+				var description = schemaSubfields[index] ? schemaSubfields[index].description : "";
 				return(
 					<tr key={"field"+ind}>
 						<td>{ind}</td>
 						<td>{field}</td>
+						<td>{description}</td>
 					</tr>
 				)
 			})
