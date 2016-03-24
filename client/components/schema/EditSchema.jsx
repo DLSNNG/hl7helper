@@ -9,6 +9,8 @@ EditSchema = React.createClass({
 			schema: new Models.Schema(this.props.schema),
 			selectedSegment: false,
 			selectedField: false,
+			askRemove: false,
+			askDelete: false
 		}
 	},
 
@@ -48,6 +50,24 @@ EditSchema = React.createClass({
 		this.toBeRemoved = false;
 		this.setState({ askRemove:false });
 	},
+
+	deleteSchema(e) {
+		e.preventDefault();
+		var schema = this.state.schema;
+			schema.remove();
+		FlowRouter.go('/schema');
+	},
+
+	askDelete(e) {
+		e.preventDefault();
+		this.setState({ askDelete: true });
+	},
+
+	cancelDeleteSchema(e) {
+		e.preventDefault();
+		this.setState({ askDelete:false });
+	},
+
 
 	editSegment(e) {
 		e.preventDefault();
@@ -137,10 +157,31 @@ EditSchema = React.createClass({
 		)
 	},
 
+	renderAskDelete() {
+		return (
+			<div className="jumbotron">
+				<h2>Delete Schema {this.state.schema.name}?</h2>
+				<button className="btn btn-info" onClick={this.cancelDeleteSchema}>
+					Cancel
+				</button>
+				<button className="btn btn-danger" onClick={this.deleteSchema}>
+					Delete
+				</button>
+			</div>
+		)
+	},
+
 	render() {
 		console.log("props", this.state.schema._id);
 		var href = "/work/schema/" + this.state.schema._id;
-		if(this.state.askRemove) {
+		if(this.state.askDelete) {
+			return (
+				<div className="container">
+					{this.renderAskDelete()}
+				</div>
+			)
+		}
+		else if(this.state.askRemove) {
 			return (
 				<div className="container">
 					{this.renderAskRemove()}
@@ -151,13 +192,20 @@ EditSchema = React.createClass({
 			return (
 				<div className="container">
 					<div className="row">
+						<div 
+							className="glyphicon glyphicon-remove pull-right"
+							onClick={this.askDelete}></div>
+					</div>
+					<div className="row">
+						{this.renderSegments()}
+						{this.renderSelectedSegment()}
+						{this.renderSelectedField()}
+					</div>
+					<div className="col-md-12">
 						<a href={href} className="pull-right">
 							<button className="btn btn-info">Test Space</button>
 						</a>
 					</div>
-					{this.renderSegments()}
-					{this.renderSelectedSegment()}
-					{this.renderSelectedField()}
 				</div>
 			)
 		}

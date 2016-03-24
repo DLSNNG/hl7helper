@@ -4,12 +4,6 @@ FlowRouter.route('/', {
 	}
 });
 
-FlowRouter.route('/segments', {
-	action: function(params) {
-		ReactLayout.render(MainLayout, { content: <HL7Helper /> });
-	}
-});
-
 FlowRouter.route('/schema', {
 	action: function(params) {
 		ReactLayout.render(MainLayout, { content: <AddSchema /> });
