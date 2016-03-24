@@ -1,5 +1,18 @@
+li.placeholder {background: rgb(255,240,120);}
+li.placeholder:before {
+  content: "Drop here";
+  color: rgb(225,210,90);
+}
+
+
 .list-group-item span {
   pointer-events: none;
+}
+
+.widget {
+  max-height: 300px;
+  overflow-y: scroll;
+  position: relative;
 }
 
 .modal-backdrop {
@@ -18,7 +31,7 @@
 	background-color: #fff;
 	left: 10%;
 	right: 10%;
-	margin-top: 10%;
+	margin-top: 75px;
 	width: 80%;
 	border-radius: 25px;
 	height: 80%;

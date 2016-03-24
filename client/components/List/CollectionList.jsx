@@ -21,7 +21,7 @@ CollectionList = React.createClass({
 	},
 
 	render() {
-		if(!this.data.loading) {
+		if(this.data.loading) {
 			return <LoadingSpinner />;
 		}
 		else {

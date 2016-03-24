@@ -34,8 +34,8 @@ Field = React.createClass({
 				return(
 					<tr key={"field"+ind}>
 						<td>{ind}</td>
-						<td>{field}</td>
 						<td>{description}</td>
+						<td>{field}</td>
 					</tr>
 				)
 			})
@@ -47,6 +47,23 @@ Field = React.createClass({
 		
 	},
 
+	renderTableHead() {
+		if(this.state.showSubFields) {
+			return(
+				<thead>
+					<tr>
+						<th>Piece</th>
+						<th>Description</th>
+						<th>Value</th>
+					</tr>
+				</thead>
+			)
+		}
+		else {
+			return null;
+		}
+	},
+
 	render() {
 		return (
 			<div>
@@ -54,6 +71,7 @@ Field = React.createClass({
 					{this.props.field}
 				</div>
 				<table className="table">
+					{this.renderTableHead()}
 					<tbody>
 						{this.renderSubFields()}
 					</tbody>

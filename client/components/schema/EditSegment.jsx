@@ -20,36 +20,27 @@ EditSegment = React.createClass({
 		e.target.reset(); 
 	},
 
-	editField(e) {
-		e.preventDefault();
-		var field = e.target.dataset.value;
-		this.props.editField(field)
-		console.log("field clicked", field);
+	editField(field) {
+		this.props.editField(field);
 	},
 
-	removeField(e) {
-
-		e.preventDefault();
+	removeField(field) {
 
 		var segment = this.props.segment;
-		var fieldIndex = e.target.dataset.index;
+		var fieldIndex = field;
 			segment.fields.splice(fieldIndex, 1);
 			this.props.updateSegment(segment);
-			console.log("removed segment", fieldIndex);
 
+	},
+
+	updateSegment(fields){
+		var segment = this.props.segment;
+			segment.fields = fields;
+			this.props.updateSegment(segment);
 	},
 
 	render() {
 		var self=this;
-		var fields = this.props.segment.fields.map(function(field, index) {
-			var display = (index+1).toString() + ": " + field.description;
-			return (
-				<li data-value={index} onClick={self.editField} key={index+1} className="list-group-item">
-					{display} <div data-index={index} className="glyphicon glyphicon-remove pull-right" onClick={self.removeField}></div>
-				</li>
-			)
-		});
-		console.log(this.props.segment.fields);
 		return (
 			<div>
 				<h3>{this.props.segment.name}</h3>
@@ -57,9 +48,11 @@ EditSegment = React.createClass({
 					<input type="text" placeholder="Add Field" ref="fieldDescription" />
 					<input type="submit" value="Add" />
 				</form>
-				<ul className="list-group">
-					{fields}
-				</ul>
+				<SegmentList 
+					fields={self.props.segment.fields}
+					editField={self.editField}
+					removeField={self.removeField}
+					onChange={self.updateSegment} />
 			</div>
 		)
 	}

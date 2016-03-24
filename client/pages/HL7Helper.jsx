@@ -25,7 +25,7 @@ HL7Helper = React.createClass({
 		if(this.state.message.length > 0){
 			return (
 				<div className="container">
-					<div className="col-md-4">
+					<div className="col-md-2">
 						<CollectionDropdown
 							collection="Schemas"
 							display="name"
@@ -34,7 +34,7 @@ HL7Helper = React.createClass({
 							onChange={this.selectSchema}
 							ref="schema" />
 					</div>
-					<div className="col-md-8">
+					<div className="col-md-10">
 						<div className="row">
 							<button className="pull-right" onClick={this.clearMessage}>
 								<span className="glyphicon glyphicon-plus"></span>New Message
@@ -48,7 +48,7 @@ HL7Helper = React.createClass({
 		else {
 			return (
 				<div className="container">
-					<div className="col-md-4">
+					<div className="col-md-2">
 						<CollectionDropdown
 							collection="Schemas"
 							display="name"
@@ -57,7 +57,7 @@ HL7Helper = React.createClass({
 							onChange={this.selectSchema}
 							ref="schema" />
 					</div>
-					<div className="col-md-8">
+					<div className="col-md-10">
 						<textArea
 							ref="message"
 							className="col-xs-12"

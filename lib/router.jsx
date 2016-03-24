@@ -21,3 +21,9 @@ FlowRouter.route('/schema/:schemaID', {
 		ReactLayout.render(MainLayout, { content: <EditSchemaPage schema={params.schemaID} /> });
 	}
 });
+
+FlowRouter.route('/work/schema/:schemaID', {
+	action: function(params) {
+		ReactLayout.render(MainLayout, { content: <SchemaWorkPage schema={params.schemaID} /> });
+	}
+});

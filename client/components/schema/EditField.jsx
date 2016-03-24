@@ -19,17 +19,28 @@ EditField = React.createClass({
 		e.target.reset(); 
 	},
 
-	removeSubField(e) {
+	removeSubField(subfield) {
 
-		e.preventDefault();
 		var segment = this.props.segment;
 		var fieldNumber = this.props.fieldNumber;
-		var subFieldIndex = e.target.dataset.index;
+		var subFieldIndex = subfield;
 		var field =	segment.fields[fieldNumber];
 			field.subfields.splice(subFieldIndex, 1);
 		this.props.updateSegment(segment);
 		console.log("removing subfield", subFieldIndex);
 
+	},
+
+	editSubField(subfield) {
+		console.log("edited");
+	},
+
+	updateSubFields(subfields) {
+		var segment = this.props.segment;
+		var fieldNumber = this.props.fieldNumber;
+		var field = segment.fields[fieldNumber];
+			field.subfields = subfields;
+		this.props.updateSegment(segment);
 	},
 
 	render() {
@@ -54,9 +65,11 @@ EditField = React.createClass({
 					<input type="text" placeholder="Add SubField" ref="subFieldDescription" />
 					<input type="submit" value="Add" />
 				</form>
-				<ul className="list-group">
-					{subFields}
-				</ul>
+				<SegmentList 
+					fields={self.props.segment.fields[self.props.fieldNumber].subfields}
+					editField={self.editSubField}
+					removeField={self.removeSubField}
+					onChange={self.updateSubFields} />
 			</div>
 		)
 	}

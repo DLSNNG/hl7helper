@@ -29,25 +29,35 @@ EditSchema = React.createClass({
 
 		e.preventDefault;
 		var schema = this.state.schema;
-		var segment = e.target.dataset.value;
+		var segment = this.toBeRemoved;
 		delete schema.segments[segment];
 		schema.save();
-		this.setState({ schema: schema });
+		this.setState({ schema: schema, askRemove:false, selectedSegment: false, selectedField:false });
 
+	},
+
+	askRemoveSegment(e) {
+		e.preventDefault;
+		this.toBeRemoved = e.target.dataset.value;
+		console.log(this.toBeRemoved);
+		this.setState({ askRemove: true });
+	},
+
+	cancelRemoveSegment(e) {
+		e.preventDefault();
+		this.toBeRemoved = false;
+		this.setState({ askRemove:false });
 	},
 
 	editSegment(e) {
 		e.preventDefault();
-		console.log(this.state.schema);
 		var segment = this.state.schema.segments[e.target.dataset.value];
-		console.log(segment);
 		this.setState({ selectedSegment: segment, selectedField: false });
 	},
 
 	editField(field) {
-		console.log("field assigned", field);
 		this.setState({ selectedField: field });
-
+		console.log("selected field", field);
 	},
 
 	updateSegment(segment) {
@@ -56,7 +66,6 @@ EditSchema = React.createClass({
 			schema.segments[segmentName] = segment;
 			schema.save();
 			this.setState({schema: schema});
-			console.log(schema);
 	},
 
 	renderSegments() {
@@ -65,7 +74,7 @@ EditSchema = React.createClass({
 		var schemaNodes = Object.keys(this.state.schema.segments).map(function(key) {
 			return (
 				<li onClick={self.editSegment} data-value={key} className="list-group-item" key={key}>
-					{key} <div data-value={key} className="glyphicon glyphicon-remove pull-right" onClick={self.removeSegment}></div>
+					{key} <div data-value={key} className="glyphicon glyphicon-remove pull-right" onClick={self.askRemoveSegment}></div>
 				</li>
 			)
 		});
@@ -76,7 +85,7 @@ EditSchema = React.createClass({
 					<input type="text" ref="segmentName" />
 					<input type="submit" value="Add" />
 				</form>
-				<ul className="list-group">
+				<ul className="list-group widget">
 					{schemaNodes}
 				</ul>
 			</div>
@@ -114,14 +123,43 @@ EditSchema = React.createClass({
 		}
 	},
 
-	render() {
-		console.log("schema", this.props.schema);
+	renderAskRemove() {
 		return (
-			<div className="container">
-				{this.renderSegments()}
-				{this.renderSelectedSegment()}
-				{this.renderSelectedField()}
+			<div className="jumbotron">
+				<h2>Remove Segment {this.toBeRemoved}?</h2>
+				<button className="btn btn-info" onClick={this.cancelRemoveSegment}>
+					Cancel
+				</button>
+				<button className="btn btn-danger" onClick={this.removeSegment}>
+					Remove
+				</button>
 			</div>
 		)
+	},
+
+	render() {
+		console.log("props", this.state.schema._id);
+		var href = "/work/schema/" + this.state.schema._id;
+		if(this.state.askRemove) {
+			return (
+				<div className="container">
+					{this.renderAskRemove()}
+				</div>
+			)
+		}
+		else {
+			return (
+				<div className="container">
+					<div className="row">
+						<a href={href} className="pull-right">
+							<button className="btn btn-info">Test Space</button>
+						</a>
+					</div>
+					{this.renderSegments()}
+					{this.renderSelectedSegment()}
+					{this.renderSelectedField()}
+				</div>
+			)
+		}
 	}
 });
