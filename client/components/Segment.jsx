@@ -1,4 +1,4 @@
-Segment = React.createClass({
+/*Segment = React.createClass({
 
 	propTypes: {
 		segment: React.PropTypes.string,
@@ -48,4 +48,4 @@ Segment = React.createClass({
 			return this.renderWithoutFields()
 		}
 	}
-});
+});*/

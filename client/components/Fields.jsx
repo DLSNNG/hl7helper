@@ -1,4 +1,4 @@
-Fields = React.createClass({
+/*Fields = React.createClass({
 
 	propTypes: {
 		segment: React.PropTypes.string,
@@ -63,4 +63,4 @@ Fields = React.createClass({
 			</div>
 		)
 	}
-});
+});*/

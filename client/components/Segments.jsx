@@ -1,4 +1,4 @@
-Segments = React.createClass({
+/*Segments = React.createClass({
 
 	propTypes: {
 		message: React.PropTypes.string,
@@ -36,4 +36,4 @@ Segments = React.createClass({
 			</div>
 		)
 	}
-});
+});*/

@@ -109,7 +109,8 @@ MessageViewer = React.createClass({
 		var fieldIndex = this.state.selectedField;
 		var segment = this.state.message.segments[segmentIndex];
 		var field = segment.fields[fieldIndex];
-		var header = segment.header + " - " + (parseInt(fieldIndex) + 1).toString();
+		var header = segment.header;
+		var displayHeader = segment.header + " - " + (parseInt(fieldIndex) + 1).toString();
 
 		var subfieldNodes = field.subfields.map(function(subfield, index) {
 			var ind = index + 1;
@@ -117,8 +118,6 @@ MessageViewer = React.createClass({
 			var fields = segments[header] ? segments[header].fields : {};
 			var subfields = fields[fieldIndex] ? fields[fieldIndex].subfields : {};
 			var description = subfields[index] ? subfields[index].description : "";
-
-			console.log("subfield", subfield);
 
 			return(
 				<tr key={"subfield"+ind}>
@@ -131,9 +130,9 @@ MessageViewer = React.createClass({
 		return (
 			<div>
 				<button onClick={self.clearSelectedField} className="btn btn-link pull-right">
-					<span className="glyphicon glyphicon-chevron-left"></span> {segment.header}
+					<span className="glyphicon glyphicon-chevron-left"></span> {header}
 				</button>
-				<h1>{header}</h1>
+				<h1>{displayHeader}</h1>
 				<table className="table">
 					<thead>
 						<tr>
