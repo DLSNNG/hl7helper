@@ -26,8 +26,16 @@ AddSchema = React.createClass({
 					<div className="container">
 						<h2>Schemas</h2>
 						<form onSubmit={this.addSchema}>
-							<input type="text" ref="schemaName" />
-							<input type="submit" value="Add" />
+							<div className="form-group">
+								<div className="input-group">
+									<input type="text" ref="schemaName" className="form-control" placeholder="Add Schema"/>
+									<div className="input-group-btn">
+										<button className="btn btn-primary">
+											<span className="glyphicon glyphicon-plus"></span>
+										</button>
+									</div>
+								</div>
+							</div>
 						</form>
 						<CollectionList
 						collection="Schemas"

@@ -62,8 +62,16 @@ EditField = React.createClass({
 			<div>
 				<h3>{segment.name} - {displayNumber}</h3>
 				<form onSubmit={this.addSubField}>
-					<input type="text" placeholder="Add SubField" ref="subFieldDescription" />
-					<input type="submit" value="Add" />
+					<div className="form-group">
+						<div className="input-group">
+							<input type="text" placeholder="Add SubField" ref="subFieldDescription" className="form-control" />
+							<div className="input-group-btn">
+								<button className="btn btn-primary">
+									<span className="glyphicon glyphicon-plus"></span>
+								</button>
+							</div>
+						</div>
+					</div>
 				</form>
 				<SegmentList 
 					fields={self.props.segment.fields[self.props.fieldNumber].subfields}

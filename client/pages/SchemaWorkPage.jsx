@@ -37,12 +37,12 @@ SchemaWorkPage = React.createClass({
 					<div className="row">
 						<h2>{this.data.schema.name}</h2>
 					</div>
+					<MessageViewer message={this.state.message} schema={this.data.schema}/>
 					<div className="row">
-						<button className="pull-right" onClick={this.clearMessage}>
-							<span className="glyphicon glyphicon-plus"></span>New Message
+						<button className="btn btn-warning col-xs-12" onClick={this.clearMessage}>
+							<span className="glyphicon glyphicon-chevron-left"></span>New Message
 						</button>
 					</div>
-					<Segments message={this.state.message} schema={this.data.schema} />
 				</div>
 			)
 		}
@@ -58,7 +58,7 @@ SchemaWorkPage = React.createClass({
 							className="col-xs-12"
 							rows="15"
 							placeholder="Place HL7 Segment here" />
-						<input onClick={this.updateMessage} type="submit" value="Submit" />
+						<input onClick={this.updateMessage} type="submit" value="Submit" className="btn btn-primary col-xs-12" />
 					</div>
 				</div>
 			)

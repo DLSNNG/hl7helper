@@ -45,8 +45,16 @@ EditSegment = React.createClass({
 			<div>
 				<h3>{this.props.segment.name}</h3>
 				<form onSubmit={this.addField}>
-					<input type="text" placeholder="Add Field" ref="fieldDescription" />
-					<input type="submit" value="Add" />
+					<div className="form-group">
+						<div className="input-group">
+							<input type="text" placeholder="Add Field" ref="fieldDescription" className="form-control"/>
+							<div className="input-group-btn">
+								<button className="btn btn-primary">
+									<span className="glyphicon glyphicon-plus"></span>
+								</button>
+							</div>
+						</div>
+					</div>
 				</form>
 				<SegmentList 
 					fields={self.props.segment.fields}

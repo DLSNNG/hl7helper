@@ -102,8 +102,16 @@ EditSchema = React.createClass({
 			<div className={gridSize}>
 				<h3>{this.state.schema.name}</h3>
 				<form onSubmit={this.addSegment}>
-					<input type="text" ref="segmentName" />
-					<input type="submit" value="Add" />
+					<div className="form-group">
+						<div className="input-group">
+							<input type="text" ref="segmentName" placeholder="Add Segment" className="form-control" />
+							<div className="input-group-btn">
+								<button className="btn btn-primary">
+									<span className="glyphicon glyphicon-plus"></span>
+								</button>
+							</div>
+						</div>
+					</div>
 				</form>
 				<ul className="list-group widget">
 					{schemaNodes}
@@ -115,7 +123,7 @@ EditSchema = React.createClass({
 	renderSelectedSegment() {
 		if(this.state.selectedSegment) {
 			return (
-				<div className="col-md-4">
+				<div className="col-md-4 edit-widget">
 					<EditSegment segment={this.state.selectedSegment} 
 						updateSegment={this.updateSegment} 
 						editField={this.editField}/>
@@ -130,7 +138,7 @@ EditSchema = React.createClass({
 	renderSelectedField() {
 		if(this.state.selectedField) {
 			return (
-				<div className="col-md-4">
+				<div className="col-md-4 edit-widget">
 					<EditField 
 						segment={this.state.selectedSegment} 
 						updateSegment={this.updateSegment} 
@@ -193,7 +201,7 @@ EditSchema = React.createClass({
 				<div className="container">
 					<div className="row">
 						<div 
-							className="glyphicon glyphicon-remove pull-right"
+							className="glyphicon glyphicon-remove pull-right delete-schema"
 							onClick={this.askDelete}></div>
 					</div>
 					<div className="row">

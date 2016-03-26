@@ -13,19 +13,8 @@ Segments = React.createClass({
 
 	renderSegments() {
 		console.log("segments", this.parseSegments());
-		var schema = new Models.Schema();
-		var segment = new Models.Segment();
-		var field = new Models.Field();
-		var subField = new Models.SubField();
-
-		subField.description = "subfield";
-		field.description = "field";
-		field.addSubField(subField);
-		segment.name = "segment";
-		segment.addField(field);
-		schema.addSegment(segment);
-
-		console.log("schema", schema);
+		var message = new Models.Message(this.props.message);
+		console.log("message", message);
 		var self = this;
 		var segmentNodes = this.parseSegments().map(function(segment, index) {
 			var ind = index + 1;

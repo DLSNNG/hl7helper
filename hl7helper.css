@@ -14,6 +14,11 @@ li.placeholder:before {
   pointer-events: none;
 }
 
+.delete-schema {
+  font-size: 30px;
+  color: #BD3939;
+}
+
 .widget {
   max-height: 300px;
   overflow-y: scroll;
@@ -27,7 +32,7 @@ li.placeholder:before {
 	left:0px;
 	right:0px;
 	bottom:0px;
-	background-color: #333;
+	background-color: #286090;
 }
 
 .modal-inner {
@@ -77,6 +82,12 @@ li.placeholder:before {
   border-radius: 100%;
 }
 
+.edit-widget {
+  animation-name: enter-right;
+  animation-duration: .1s;
+  animation-timing-function: linear;
+}
+
 @-webkit-keyframes rotation {
   from {
     -webkit-transform: rotate(0deg);
@@ -110,5 +121,41 @@ li.placeholder:before {
   }
   to {
     transform: rotate(359deg);
+  }
+}
+
+@-webkit-keyframes enter-right {
+  from {
+    -webkit-transform: translate(100%, 0);
+  }
+  to {
+    -webkit-transform: translate(0, 0);
+  }
+}
+
+@-moz-keyframes enter-right {
+  from {
+    -moz-transform: translate(100%, 0);
+  }
+  to {
+    -moz-transform: translate(0, 0);
+  }
+}
+
+@-o-keyframes enter-right {
+  from {
+    -o-transform: translate(100%, 0);
+  }
+  to {
+    -o-transform: translate(0, 0);
+  }
+}
+
+@keyframes enter-right {
+  from {
+    transform: translate(100%, 0);
+  }
+  to {
+    transform: translate(0, 0);
   }
 }
