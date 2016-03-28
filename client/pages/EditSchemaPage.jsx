@@ -9,10 +9,12 @@ EditSchemaPage = React.createClass({
 	getMeteorData() {
 		var handle = Meteor.subscribe("schemas");
 		var loading = !handle.ready();
-		var schema = Collections.Schemas.findOne({ _id: this.props.schema, creator: Meteor.userId() });
+		var editSchema = Collections.Schemas.findOne({ _id: this.props.schema, creator: Meteor.userId() });
+		var viewSchema = Collections.Schemas.findOne({ _id: this.props.schema });
 		return {
 			loading: loading,
-			schema: schema
+			editSchema: editSchema,
+			viewSchema: viewSchema
 		}
 	},
 
@@ -20,16 +22,14 @@ EditSchemaPage = React.createClass({
 		if(this.data.loading) {
 			return <LoadingSpinner />
 		}
-		else if(!this.data.schema) {
+		else if(this.data.editSchema) {
 			return (
-				<div className="container">
-					You do not have permission to edit this schema.
-				</div>
+				<EditSchema schema={this.data.editSchema} />
 			)
 		}
 		else {
 			return (
-				<EditSchema schema={this.data.schema} />
+				<ViewSchema schema={this.data.viewSchema} />
 			)
 		}
 	}

@@ -35,7 +35,10 @@ SchemaWorkPage = React.createClass({
 			return (
 				<div className="container">
 					<div className="row">
-						<h2>{this.data.schema.name}</h2>
+						<h2>
+							{this.data.schema.name} &nbsp;
+							<a href={"/schema/"+this.props.schema}><span className="glyphicon glyphicon-pencil schema-pencil"></span></a>
+						</h2>
 					</div>
 					<MessageViewer message={this.state.message} schema={this.data.schema}/>
 					<div className="row">
@@ -50,7 +53,10 @@ SchemaWorkPage = React.createClass({
 			return (
 				<div className="container">
 					<div className="row">
-						<h2>{this.data.schema.name}</h2>
+						<h2>
+							{this.data.schema.name} &nbsp;
+							<a href={"/schema/"+this.props.schema}><span className="glyphicon glyphicon-pencil schema-pencil"></span></a>
+						</h2>
 					</div>
 					<div className="row">
 						<textArea

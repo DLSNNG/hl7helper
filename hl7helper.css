@@ -65,6 +65,10 @@ li.placeholder:before {
 	color: red;
 }
 
+.schema-pencil {
+  font-size: 24px;
+}
+
 /*Loading Spinner*/
 .spinner {
   height: 30px;
