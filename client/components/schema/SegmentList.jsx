@@ -6,7 +6,8 @@ SegmentList = React.createClass({
     fields: React.PropTypes.array,
     onChange: React.PropTypes.func,
     editField: React.PropTypes.func,
-    removeField: React.PropTypes.func
+    removeField: React.PropTypes.func,
+    className: React.PropTypes.string
   },
   getInitialState(){
     return {
@@ -71,6 +72,8 @@ SegmentList = React.createClass({
   },
   renderArray(){
     var self = this;
+    var className = this.props.className ? this.props.className : "";
+        className = "list-group-item " + className;
     var fields = this.state.fields.map(function(field, index) {
       var display = (index+1).toString() + ": " + field.description;
       return (
@@ -81,9 +84,9 @@ SegmentList = React.createClass({
           onDragStart={self.dragStart}
           onDragEnd={self.dragEnd}
           onClick={self.editField}
-          className="list-group-item">
+          className={className}>
           
-          {display} <div data-index={index} className="glyphicon glyphicon-remove pull-right" onClick={self.removeField}></div>
+          {display} <div data-index={index} className="glyphicon glyphicon-remove pull-right list-remove" onClick={self.removeField}></div>
         </li>
       ) 
     }); 

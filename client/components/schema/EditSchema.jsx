@@ -16,10 +16,11 @@ EditSchema = React.createClass({
 
 	addSegment(e) {
 		e.preventDefault();
-
+		var segmentName = this.refs.segmentName.value.trim();
+		if(segmentName == "") { return false; } //don't allow blank fields
 		var schema = this.state.schema;
 		var segment = new Models.Segment();
-			segment.name = this.refs.segmentName.value;
+			segment.name = segmentName;
 			schema.addSegment(segment);
 
 		this.setState({ schema: schema });
@@ -93,8 +94,8 @@ EditSchema = React.createClass({
 		var self = this;
 		var schemaNodes = Object.keys(this.state.schema.segments).map(function(key) {
 			return (
-				<li onClick={self.editSegment} data-value={key} className="list-group-item" key={key}>
-					{key} <div data-value={key} className="glyphicon glyphicon-remove pull-right" onClick={self.askRemoveSegment}></div>
+				<li onClick={self.editSegment} data-value={key} className="list-group-item list-hover" key={key}>
+					{key} <div data-value={key} className="glyphicon glyphicon-remove pull-right list-remove" onClick={self.askRemoveSegment}></div>
 				</li>
 			)
 		});

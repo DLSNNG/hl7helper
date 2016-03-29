@@ -4,6 +4,24 @@ li.placeholder:before {
   color: rgb(225,210,90);
 }
 
+.hover-pointer {
+  cursor: pointer;
+}
+
+.list-hover:hover {
+  cursor: pointer;
+  color: steelblue;
+}
+
+.list-remove {
+  color: #333;
+}
+
+.list-remove:hover {
+  cursor: pointer;
+  color: #BD3939;
+}
+
 .home-jumbotron {
   background-color: #F5B445;
   color: #7D7D7D;

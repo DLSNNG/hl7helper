@@ -60,7 +60,8 @@ EditSegment = React.createClass({
 					fields={self.props.segment.fields}
 					editField={self.editField}
 					removeField={self.removeField}
-					onChange={self.updateSegment} />
+					onChange={self.updateSegment}
+					className="list-hover" />
 			</div>
 		)
 	}

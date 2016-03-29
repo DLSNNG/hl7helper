@@ -18,7 +18,7 @@ ViewField = React.createClass({
 		var subFields = segment.fields[fieldNumber].subfields.map(function(subField, index) {
 			var display = parseInt(index + 1) + ": " + subField.description;
 			return (
-				<li key={index+1} className="list-group-item">
+				<li key={index+1} className="list-group-item list-hover">
 					{display}
 				</li>
 			)

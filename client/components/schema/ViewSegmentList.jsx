@@ -1,7 +1,8 @@
 ViewSegmentList = React.createClass({
   propTypes:{
     fields: React.PropTypes.array,
-    selectField: React.PropTypes.func
+    selectField: React.PropTypes.func,
+    className: React.PropTypes.string
   },
   selectField(e) {
     e.preventDefault();
@@ -10,6 +11,8 @@ ViewSegmentList = React.createClass({
   },
   renderArray(){
     var self = this;
+    var className = this.props.className ? this.props.className : "";
+        className = "list-group-item " + className;
     var fields = this.props.fields.map(function(field, index) {
       var display = (index+1).toString() + ": " + field.description;
       return (
@@ -17,7 +20,7 @@ ViewSegmentList = React.createClass({
           key={index}
           data-id={index}
           onClick={self.selectField}
-          className="list-group-item">
+          className={className}>
           
           {display}
         </li>

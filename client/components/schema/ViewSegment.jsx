@@ -16,7 +16,8 @@ ViewSegment = React.createClass({
 				<h3>{this.props.segment.name}</h3>
 				<ViewSegmentList 
 					fields={self.props.segment.fields}
-					selectField={self.selectField} />
+					selectField={self.selectField}
+					className="list-hover" />
 			</div>
 		)
 	}

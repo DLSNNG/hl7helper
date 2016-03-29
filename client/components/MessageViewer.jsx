@@ -43,7 +43,7 @@ MessageViewer = React.createClass({
 		var segmentNodes = this.state.message.segments.map(function(segment, index) {
 			return (
 				<li 
-					className="list-group-item"
+					className="list-group-item list-hover"
 					onClick={self.selectSegment} 
 					key={index} 
 					data-index={index}>
@@ -76,7 +76,7 @@ MessageViewer = React.createClass({
 				<tr key={"field"+ind}>
 					<td>{ind}</td>
 					<td>{description}</td>
-					<td data-index={index} onClick={self.selectField}>{field.value}</td>
+					<td data-index={index} onClick={self.selectField} className="list-hover">{field.value}</td>
 				</tr>
 			)
 		});

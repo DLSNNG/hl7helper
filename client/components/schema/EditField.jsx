@@ -77,7 +77,8 @@ EditField = React.createClass({
 					fields={self.props.segment.fields[self.props.fieldNumber].subfields}
 					editField={self.editSubField}
 					removeField={self.removeSubField}
-					onChange={self.updateSubFields} />
+					onChange={self.updateSubFields}
+					className="hover-pointer" />
 			</div>
 		)
 	}

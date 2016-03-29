@@ -28,7 +28,7 @@ ViewSchema = React.createClass({
 		var self = this;
 		var schemaNodes = Object.keys(this.state.schema.segments).map(function(key) {
 			return (
-				<li onClick={self.selectSegment} data-value={key} className="list-group-item" key={key}>
+				<li onClick={self.selectSegment} data-value={key} className="list-group-item list-hover" key={key}>
 					{key}
 				</li>
 			)
