@@ -2,7 +2,8 @@ MessageViewer = React.createClass({
 
 	propTypes: {
 		message: React.PropTypes.string,
-		schema: React.PropTypes.object
+		schema: React.PropTypes.object,
+		displaySegments: React.PropTypes.bool
 	},
 
 	getInitialState() {
@@ -10,7 +11,8 @@ MessageViewer = React.createClass({
 		return {
 			message: message,
 			selectedSegment: false,
-			selectedField: false
+			selectedField: false,
+			displaySegments: false
 		}
 	},
 
@@ -38,24 +40,40 @@ MessageViewer = React.createClass({
 		console.log("selected field", index);
 	},
 
+	toggleFullSegment(e){
+		//need to figure out why this is not updating the checkbox correctly when it fires.
+		e.stopPropagation();
+		var displaySegments = !this.state.displaySegments;
+		this.setState({ displaySegments: displaySegments });
+	},
+
 	renderSegments() {
 		var self = this;
 		var segmentNodes = this.state.message.segments.map(function(segment, index) {
+			console.log("segment", segment);
+			var segmentText = self.state.displaySegments ? " | " + segment.value : "";
 			return (
 				<li 
 					className="list-group-item list-hover"
 					onClick={self.selectSegment} 
 					key={index} 
 					data-index={index}>
-					{segment.header}
+					{segment.header} {segmentText}
 				</li>
 			)
 		});
 		console.log("segmentNodes", segmentNodes);
 		return(
-			<ul className="list-group">
-				{segmentNodes}
-			</ul>
+			<div>
+				<span>
+					<label> 
+						Display full segment? <input type="checkbox" checked={this.state.displaySegments} onClick={this.toggleFullSegment} /> 
+					</label>
+				</span>
+				<ul className="list-group">
+					{segmentNodes}
+				</ul>
+			</div>
 		)
 	},
 
