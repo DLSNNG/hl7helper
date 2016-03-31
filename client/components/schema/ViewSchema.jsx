@@ -1,7 +1,9 @@
 ViewSchema = React.createClass({
 
 	propTypes: {
-		schema: React.PropTypes.object
+		schema: React.PropTypes.object,
+		isFavorite: React.PropTypes.bool,
+		loggedIn: React.PropTypes.bool
 	},
 
 	getInitialState() {
@@ -21,6 +23,22 @@ ViewSchema = React.createClass({
 	selectedField(field) {
 		this.setState({ selectedField: field });
 		console.log("selected field", field);
+	},
+
+	toggleFavorite(e) {
+		e.preventDefault();
+		Meteor.call("toggleSchemaFavorite", this.props.schema, function(error, response) {
+			if(error) { console.log("ERROR", error); }
+			else { console.log("Toggled Schema", response); }
+		});
+	},
+
+	copySchema(newName) {
+		var doc = { name: newName, segments: this.props.schema.segments };
+		Meteor.call("saveSchema", doc, function(error, schemaID) {
+			if(error) { console.log("ERROR", error); }
+			else { FlowRouter.go("/schema/"+schemaID); }
+		});
 	},
 
 	renderSegments() {
@@ -73,11 +91,27 @@ ViewSchema = React.createClass({
 		}
 	},
 
+	renderFavoritesButton() {
+		if (this.props.loggedIn) {
+			var className = this.props.isFavorite ? "glyphicon glyphicon-star" : "glyphicon glyphicon-star-empty";
+				className = "pull-right favorite " + className;
+			return (
+				<span className={className} onClick={this.toggleFavorite}></span>
+			)
+		}
+		else {
+			return false;
+		}
+	},
+
 	render() {
 		console.log("props", this.state.schema._id);
 		var href = "/work/schema/" + this.state.schema._id;
 		return (
 			<div className="container">
+				<div className="row">
+					{this.renderFavoritesButton()}
+				</div>
 				<div className="row">
 					{this.renderSegments()}
 					{this.renderSelectedSegment()}
@@ -87,6 +121,15 @@ ViewSchema = React.createClass({
 					<a href={href} className="pull-right">
 						<button className="btn btn-info">Test Space</button>
 					</a>
+					<ModalButton
+						buttonText="Copy Schema"
+						buttonClass="btn btn-warning"
+						modalId="copySchema"
+						modalTitle="Rename Schema"
+						modalText="Please select a new name for the copied Schema"
+						modalInput="New Name"
+						onSubmit={this.copySchema} />
+
 				</div>
 			</div>
 		)

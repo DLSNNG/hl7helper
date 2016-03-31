@@ -9,8 +9,7 @@ EditSchema = React.createClass({
 			schema: new Models.Schema(this.props.schema),
 			selectedSegment: false,
 			selectedField: false,
-			askRemove: false,
-			askDelete: false
+			askRemove: false
 		}
 	},
 
@@ -52,21 +51,10 @@ EditSchema = React.createClass({
 		this.setState({ askRemove:false });
 	},
 
-	deleteSchema(e) {
-		e.preventDefault();
+	deleteSchema() {
 		var schema = this.state.schema;
 			schema.remove();
 		FlowRouter.go('/schema');
-	},
-
-	askDelete(e) {
-		e.preventDefault();
-		this.setState({ askDelete: true });
-	},
-
-	cancelDeleteSchema(e) {
-		e.preventDefault();
-		this.setState({ askDelete:false });
 	},
 
 
@@ -87,6 +75,14 @@ EditSchema = React.createClass({
 			schema.segments[segmentName] = segment;
 			schema.save();
 			this.setState({schema: schema});
+	},
+
+	copySchema(newName) {
+		var doc = { name: newName, segments: this.props.schema.segments };
+		Meteor.call("saveSchema", doc, function(error, schemaID) {
+			if(error) { console.log("ERROR", error); }
+			else { FlowRouter.go("/schema/"+schemaID); }
+		});
 	},
 
 	renderSegments() {
@@ -166,20 +162,6 @@ EditSchema = React.createClass({
 		)
 	},
 
-	renderAskDelete() {
-		return (
-			<div className="jumbotron">
-				<h2>Delete Schema {this.state.schema.name}?</h2>
-				<button className="btn btn-info" onClick={this.cancelDeleteSchema}>
-					Cancel
-				</button>
-				<button className="btn btn-danger" onClick={this.deleteSchema}>
-					Delete
-				</button>
-			</div>
-		)
-	},
-
 	render() {
 		console.log("props", this.state.schema._id);
 		var href = "/work/schema/" + this.state.schema._id;
@@ -201,9 +183,13 @@ EditSchema = React.createClass({
 			return (
 				<div className="container">
 					<div className="row">
-						<div 
-							className="glyphicon glyphicon-remove pull-right delete-schema"
-							onClick={this.askDelete}></div>
+						<ModalDiv
+							buttonText=""
+							buttonClass="glyphicon glyphicon-remove pull-right delete-schema"
+							modalId="deleteSchema"
+							modalTitle="Delete Schema"
+							modalText="Are you sure you want to delete this schema?"
+							onSubmit={this.deleteSchema} />
 					</div>
 					<div className="row">
 						{this.renderSegments()}
@@ -214,6 +200,14 @@ EditSchema = React.createClass({
 						<a href={href} className="pull-right">
 							<button className="btn btn-info">Test Space</button>
 						</a>
+						<ModalButton
+							buttonText="Copy Schema"
+							buttonClass="btn btn-warning"
+							modalId="copySchema"
+							modalTitle="Rename Schema"
+							modalText="Please select a new name for the copied Schema"
+							modalInput="New Name"
+							onSubmit={this.copySchema} />
 					</div>
 				</div>
 			)

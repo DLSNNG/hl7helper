@@ -10,6 +10,12 @@ FlowRouter.route('/schema', {
 	}
 });
 
+FlowRouter.route('/favorites', {
+	action: function(params) {
+		ReactLayout.render(MainLayout, { content: <ViewFavorites /> });
+	}
+});
+
 FlowRouter.route('/schema/:schemaID', {
 	action: function(params) {
 		ReactLayout.render(MainLayout, { content: <EditSchemaPage schema={params.schemaID} /> });

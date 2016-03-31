@@ -37,6 +37,18 @@ li.placeholder:before {
   color: #BD3939;
 }
 
+.favorite {
+  font-size: 30px;
+}
+
+.favorite.glyphicon-start-empty {
+  color: #333;
+}
+
+.favorite.glyphicon-star {
+  color: #EDC84E;
+}
+
 .widget {
   max-height: 300px;
   overflow-y: scroll;
