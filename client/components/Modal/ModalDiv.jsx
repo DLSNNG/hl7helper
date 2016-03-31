@@ -37,9 +37,11 @@ ModalDiv = React.createClass({
 		if(this.props.modalInput) {
 			var value = this.refs.input.value;
 			this.props.onSubmit(value);
+			$("#" + this.props.modalId).modal('hide');
 		}
 		else {
 			this.props.onSubmit();
+			$("#" + this.props.modalId).modal('hide');
 		}
 	},
 

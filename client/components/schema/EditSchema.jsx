@@ -13,6 +13,10 @@ EditSchema = React.createClass({
 		}
 	},
 
+	componentWillReceiveProps(nextProps) {
+		this.setState({ schema: nextProps.schema });
+	},
+
 	addSegment(e) {
 		e.preventDefault();
 		var segmentName = this.refs.segmentName.value.trim();
@@ -185,10 +189,19 @@ EditSchema = React.createClass({
 					<div className="row">
 						<ModalDiv
 							buttonText=""
+							buttonClass="glyphicon glyphicon-duplicate pull-left"
+							modalId="copySchema"
+							modalTitle="Rename New Schema"
+							modalText="Please select a new name for the copied Schema"
+							modalInput="New Name"
+							onSubmit={this.copySchema} />
+						<ModalDiv
+							buttonText=""
 							buttonClass="glyphicon glyphicon-remove pull-right delete-schema"
 							modalId="deleteSchema"
 							modalTitle="Delete Schema"
 							modalText="Are you sure you want to delete this schema?"
+							submitText="Delete"
 							onSubmit={this.deleteSchema} />
 					</div>
 					<div className="row">
@@ -200,14 +213,6 @@ EditSchema = React.createClass({
 						<a href={href} className="pull-right">
 							<button className="btn btn-info">Test Space</button>
 						</a>
-						<ModalButton
-							buttonText="Copy Schema"
-							buttonClass="btn btn-warning"
-							modalId="copySchema"
-							modalTitle="Rename Schema"
-							modalText="Please select a new name for the copied Schema"
-							modalInput="New Name"
-							onSubmit={this.copySchema} />
 					</div>
 				</div>
 			)

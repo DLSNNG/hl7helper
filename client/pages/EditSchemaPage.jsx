@@ -24,17 +24,19 @@ EditSchemaPage = React.createClass({
 		}
 	},
 
-	componentWillReceiveProps(nextProps) {
-		//need to figure out why not updating when new route passed in
-		this.getMeteorData();
+	componentWillreceiveProps(nextProps) {
+		console.log("schema", this.data.editSchema);
 	},
 
 	render() {
 		console.log("isFavorite", this.data.isFavorite);
+		console.log("schemapage", this.props.schema);
+		console.log("schemapagedata", this.data.editSchema);
 		if(this.data.loading) {
 			return <LoadingSpinner />
 		}
 		else if(this.data.editSchema) {
+			console.log("schema passed to edit schema", this.data.editSchema);
 			return (
 				<EditSchema schema={this.data.editSchema} />
 			)
