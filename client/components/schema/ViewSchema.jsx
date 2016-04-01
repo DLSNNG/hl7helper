@@ -94,9 +94,11 @@ ViewSchema = React.createClass({
 	renderFavoritesButton() {
 		if (this.props.loggedIn) {
 			var className = this.props.isFavorite ? "glyphicon glyphicon-star" : "glyphicon glyphicon-star-empty";
-				className = "pull-right favorite " + className;
+				className = "favorite " + className;
 			return (
-				<span className={className} onClick={this.toggleFavorite}></span>
+				<div className="control-button">
+					<div className={className} onClick={this.toggleFavorite}></div>
+				</div>
 			)
 		}
 		else {
@@ -110,7 +112,18 @@ ViewSchema = React.createClass({
 		return (
 			<div className="container">
 				<div className="row">
-					{this.renderFavoritesButton()}
+					<div className="pull-right control-holder">
+							<ModalDiv
+								buttonText=""
+								divClass="control-button"
+								buttonClass="glyphicon glyphicon-duplicate copy-schema"
+								modalId="copySchema"
+								modalTitle="Rename New Schema"
+								modalText="Please select a new name for the copied Schema"
+								modalInput="New Name"
+								onSubmit={this.copySchema} />
+							{this.renderFavoritesButton()}
+					</div>
 				</div>
 				<div className="row">
 					{this.renderSegments()}
@@ -121,15 +134,6 @@ ViewSchema = React.createClass({
 					<a href={href} className="pull-right">
 						<button className="btn btn-info">Test Space</button>
 					</a>
-					<ModalButton
-						buttonText="Copy Schema"
-						buttonClass="btn btn-warning"
-						modalId="copySchema"
-						modalTitle="Rename Schema"
-						modalText="Please select a new name for the copied Schema"
-						modalInput="New Name"
-						onSubmit={this.copySchema} />
-
 				</div>
 			</div>
 		)

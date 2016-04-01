@@ -32,13 +32,40 @@ li.placeholder:before {
   pointer-events: none;
 }
 
+.control-holder .control-button {
+  display: inline-block;
+  cursor: pointer;
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
 .delete-schema {
   font-size: 30px;
   color: #BD3939;
+  opacity: .7;
+}
+
+.delete-schema:hover {
+  opacity: 1;
+}
+
+.copy-schema {
+  font-size: 30px;
+  color: steelblue;
+  opacity: .7;
+}
+
+.copy-schema:hover {
+  opacity: 1;
 }
 
 .favorite {
   font-size: 30px;
+  opacity: .7
+}
+
+.favorite:hover {
+  opacity: 1;
 }
 
 .favorite.glyphicon-start-empty {

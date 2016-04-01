@@ -2,6 +2,7 @@ ModalDiv = React.createClass({
 
 	propTypes: {
 		buttonText: React.PropTypes.string,
+		divClass: React.PropTypes.string,
 		buttonClass: React.PropTypes.string,
 		modalId: React.PropTypes.string,
 		modalTitle: React.PropTypes.string,
@@ -46,11 +47,12 @@ ModalDiv = React.createClass({
 	},
 
 	render() {
+		var divClass = this.props.divClass || "";
 		var btnClass = this.props.buttonClass || "btn btn-primary btn-lg";
 		var cancelText = this.props.cancelText || "Close";
 		var submitText = this.props.submitText || "Submit";
 		return (
-			<div>
+			<div className={divClass}>
 				<div className={btnClass} data-toggle="modal" data-target={"#"+this.props.modalId}>
 				  {this.props.buttonText}
 				</div>

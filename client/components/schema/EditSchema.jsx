@@ -14,7 +14,7 @@ EditSchema = React.createClass({
 	},
 
 	componentWillReceiveProps(nextProps) {
-		this.setState({ schema: nextProps.schema });
+		this.setState({ schema: new Models.Schema(nextProps.schema) });
 	},
 
 	addSegment(e) {
@@ -169,14 +169,7 @@ EditSchema = React.createClass({
 	render() {
 		console.log("props", this.state.schema._id);
 		var href = "/work/schema/" + this.state.schema._id;
-		if(this.state.askDelete) {
-			return (
-				<div className="container">
-					{this.renderAskDelete()}
-				</div>
-			)
-		}
-		else if(this.state.askRemove) {
+		if(this.state.askRemove) {
 			return (
 				<div className="container">
 					{this.renderAskRemove()}
@@ -187,22 +180,26 @@ EditSchema = React.createClass({
 			return (
 				<div className="container">
 					<div className="row">
-						<ModalDiv
-							buttonText=""
-							buttonClass="glyphicon glyphicon-duplicate pull-left"
-							modalId="copySchema"
-							modalTitle="Rename New Schema"
-							modalText="Please select a new name for the copied Schema"
-							modalInput="New Name"
-							onSubmit={this.copySchema} />
-						<ModalDiv
-							buttonText=""
-							buttonClass="glyphicon glyphicon-remove pull-right delete-schema"
-							modalId="deleteSchema"
-							modalTitle="Delete Schema"
-							modalText="Are you sure you want to delete this schema?"
-							submitText="Delete"
-							onSubmit={this.deleteSchema} />
+						<div className="pull-right control-holder">
+							<ModalDiv
+								buttonText=""
+								divClass="control-button"
+								buttonClass="glyphicon glyphicon-duplicate copy-schema"
+								modalId="copySchema"
+								modalTitle="Rename New Schema"
+								modalText="Please select a new name for the copied Schema"
+								modalInput="New Name"
+								onSubmit={this.copySchema} />
+							<ModalDiv
+								buttonText=""
+								divClass="control-button"
+								buttonClass="glyphicon glyphicon-remove delete-schema"
+								modalId="deleteSchema"
+								modalTitle="Delete Schema"
+								modalText="Are you sure you want to delete this schema?"
+								submitText="Delete"
+								onSubmit={this.deleteSchema} />
+						</div>
 					</div>
 					<div className="row">
 						{this.renderSegments()}
